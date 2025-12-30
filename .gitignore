@@ -1,6 +1,5 @@
 # Kredensial & Secrets
 .env
-firebase_credentials.json
 
 # Python junk
 __pycache__/

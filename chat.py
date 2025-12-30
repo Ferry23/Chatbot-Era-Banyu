@@ -13,13 +13,15 @@ client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # Initialize Firebase
 if not firebase_admin._apps:
-    # For production, use environment variables or service account key
-    # Here, assuming firebase_credentials.json is present or use env
-    try:
-        cred = credentials.Certificate("firebase_credentials.json")
-    except FileNotFoundError:
-        # Fallback to env if needed, but for now assume file
-        raise Exception("Firebase credentials not found")
+    firebase_key = os.environ.get("FIREBASE_SERVICE_ACCOUNT_KEY")
+    if firebase_key:
+        cred_dict = json.loads(firebase_key)
+        cred = credentials.Certificate(cred_dict)
+    else:
+        try:
+            cred = credentials.Certificate("firebase_credentials.json")
+        except FileNotFoundError:
+            raise Exception("Firebase credentials not found. Set FIREBASE_SERVICE_ACCOUNT_KEY or provide firebase_credentials.json")
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
