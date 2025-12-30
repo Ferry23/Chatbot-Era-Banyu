@@ -1,0 +1,18 @@
+# Kredensial & Secrets
+.env
+firebase_credentials.json
+
+# Python junk
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment (Jika Anda nanti membuatnya)
+venv/
+env/
+.venv/
+
+# IDE Settings
+.vscode/
+.idea/
