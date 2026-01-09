@@ -102,13 +102,15 @@ def get_response(msg):
     6. Jawab dengan SINGKAT, JELAS, dan LANGSUNG KE INTI. Fokus pada informasi penting saja.
     7. Untuk pertanyaan umum seperti salam dalam konteks perusahaan, jawab ramah.
     
-    FORMAT JAWABAN REKOMENDASI PRODUK:
-    - Sebutkan nama produk yang direkomendasikan
-    - Harga dan minimal order
-    - Sertakan link produk: [Link Produk]
+    FORMAT JAWABAN REKOMENDASI PRODUK (WAJIB DIIKUTI):
+    - Gunakan format Markdown hyperlink: [Nama Produk](Link)
+    - Sertakan harga dan minimal order
     
     Contoh jawaban yang baik:
-    "Untuk makanan, kami rekomendasikan Packing Carton Box (Rp 2.000/pcs, min. order 1000 pcs). Lihat produk: http://localhost:3000/produk/xxxxx"
+    "Untuk makanan, kami rekomendasikan [Packing Carton Box](http://localhost:3000/produk/xxxxx) (Rp 2.000/pcs, min. order 1000 pcs)."
+    
+    Contoh lain:
+    "Kami punya [Bubble Wrap Roll](http://localhost:3000/produk/abc123) cocok untuk elektronik. Harga Rp 5.000/meter, min. order 50 meter."
     """
 
     try:
