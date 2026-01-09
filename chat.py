@@ -26,6 +26,9 @@ if not firebase_admin._apps:
 
 db = firestore.client()
 
+# Base URL untuk link produk
+PRODUCT_BASE_URL = "http://localhost:3000/produk"
+
 def get_all_products_from_firebase():
     try:
         products_ref = db.collection('products')
@@ -34,8 +37,11 @@ def get_all_products_from_firebase():
         product_list = []
         for doc in docs:
             d = doc.to_dict()
+            product_id = doc.id  # Ambil ID dokumen
             item = {
+                "ID": product_id,
                 "Nama Produk": d.get('name', 'Tanpa Nama'),
+                "Link": f"{PRODUCT_BASE_URL}/{product_id}",
                 "Harga": f"Rp {d.get('price', 0)} / {d.get('unit', 'pcs')}",
                 "Stok": d.get('currentStock', 0),
                 "Material": d.get('material', '-'),
@@ -89,11 +95,20 @@ def get_response(msg):
 
     Instruksi untuk jawaban yang relevan:
     1. Jawab pertanyaan user berdasarkan informasi perusahaan dan data produk di atas.
-    2. Jika user tanya harga, sebutkan angka spesifik dari data.
-    3. Perhatikan 'Minimal Order'. Jika user ingin beli eceran tapi minimal order tinggi, beritahu mereka.
-    4. Jawab dengan ramah dalam Bahasa Indonesia.
-    5. Jawab dengan intinya saja, hindari jawaban yang panjang.
-    6. Untuk pertanyaan umum seperti salam dalam konteks perusahaan, jawab ramah.
+    2. WAJIB sertakan Link produk yang direkomendasikan agar user bisa langsung mengakses halaman produk.
+    3. Jika user tanya harga, sebutkan angka spesifik dari data.
+    4. Perhatikan 'Minimal Order'. Jika user ingin beli eceran tapi minimal order tinggi, beritahu mereka.
+    5. Jawab dengan ramah dalam Bahasa Indonesia.
+    6. Jawab dengan SINGKAT, JELAS, dan LANGSUNG KE INTI. Fokus pada informasi penting saja.
+    7. Untuk pertanyaan umum seperti salam dalam konteks perusahaan, jawab ramah.
+    
+    FORMAT JAWABAN REKOMENDASI PRODUK:
+    - Sebutkan nama produk yang direkomendasikan
+    - Harga dan minimal order
+    - Sertakan link produk: [Link Produk]
+    
+    Contoh jawaban yang baik:
+    "Untuk makanan, kami rekomendasikan Packing Carton Box (Rp 2.000/pcs, min. order 1000 pcs). Lihat produk: http://localhost:3000/produk/xxxxx"
     """
 
     try:
